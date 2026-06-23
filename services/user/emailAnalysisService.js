@@ -1,10 +1,51 @@
-import { groq } from "../../config/groq";
+import { groq } from "../../config/groq.js";
 
-export const emailAnalysis = async (emailConext) => {
+export const emailContextExtracter = async (unCleanedEmail)=>{
+    try{
+
+        const response = await groq.chat.completions.create({
+            model: "llama-3.3-70b-versatile",
+            messages:[
+                {
+                    role:"system",
+                    content: `
+                        You are an OCR cleanup assistant.
+
+                        Convert OCR-extracted email text into a structured format.
+
+                        Return JSON:
+                        {
+                            "from": "",
+                            "subject": "",
+                            "body": ""
+                        }
+
+                        Fix obvious OCR mistakes but do not invent missing information.
+                        Return only JSON. `
+                },
+                {
+                    role:"user",
+                    content:unCleanedEmail
+                }
+            ],
+            response_format: { type: "json_object" }
+        })
+
+        return {
+            success:true,
+            response
+        }
+
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const emailAnalysis = async (emailContext) => {
 
     try{
 
-        const response = groq.chat.completions.create({
+        const response = await groq.chat.completions.create({
 
             model: "llama-3.3-70b-versatile",
             temperature: 0,
@@ -58,10 +99,13 @@ export const emailAnalysis = async (emailConext) => {
             ],
         });
 
-        console.log(response)
+        return{
+            success:true,
+            response
+        }
         
     }catch(err){
-
+        console.log(err)
     }
 
 };

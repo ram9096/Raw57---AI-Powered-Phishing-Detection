@@ -1,364 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raw57 - AI-Powered Phishing Detection</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
-  <script src="/js/toast.js"></script>
-  <!-- Google Fonts: Plus Jakarta Sans for premium typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Tailwind CSS Custom Configuration -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-          },
-          animation: {
-            'blob-1': 'float-1 25s infinite ease-in-out',
-            'blob-2': 'float-2 22s infinite ease-in-out',
-            'blob-3': 'float-3 20s infinite ease-in-out',
-          },
-          keyframes: {
-            'float-1': {
-              '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
-              '33%': { transform: 'translate(40px, -60px) scale(1.15)' },
-              '66%': { transform: 'translate(-20px, 30px) scale(0.95)' },
-            },
-            'float-2': {
-              '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
-              '50%': { transform: 'translate(-50px, 40px) scale(1.2)' },
-            },
-            'float-3': {
-              '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
-              '40%': { transform: 'translate(50px, 50px) scale(0.9)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    /* Premium scrollbar for the textarea when text overflow occurs */
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 4px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 9999px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-    /* Selection highlight matching theme */
-    ::selection {
-      background: rgba(59, 130, 246, 0.3);
-      color: #fff;
-    }
-  </style>
-</head>
-<body class="bg-[#050609] text-white font-sans min-h-screen overflow-x-hidden flex flex-col relative select-none">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raw57 - AI-Powered Phishing Detection</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+    <script src="/js/toast.js"></script>
+    <!-- Google Fonts: Plus Jakarta Sans for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+  </head>
+  <body
+    class="bg-[#050609] text-white font-sans min-h-screen overflow-x-hidden flex flex-col relative select-none"
+  >
+    <!-- DYNAMIC AND FLUID GLOW BACKGROUND -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <!-- Top-to-bottom dark gradient overlay to ensure top remains clean black -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-[#050609] via-transparent to-[#050609]/20 z-10"
+      ></div>
 
-  <!-- DYNAMIC AND FLUID GLOW BACKGROUND -->
-  <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-    <!-- Top-to-bottom dark gradient overlay to ensure top remains clean black -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[#050609] via-transparent to-[#050609]/20 z-10"></div>
-    
-    <!-- Blue/Indigo Glow Blobs (Middle Layer) -->
-    <div class="absolute top-[20%] left-[-10%] w-[65vw] h-[45vh] rounded-full bg-blue-600/30 blur-[130px] mix-blend-screen animate-blob-1"></div>
-    <div class="absolute top-[12%] right-[-10%] w-[60vw] h-[50vh] rounded-full bg-indigo-600/25 blur-[140px] mix-blend-screen animate-blob-2"></div>
-    
-    <!-- Vibrant Pink/Magenta/Rose Glow Blobs (Lower Layer) -->
-    <div class="absolute bottom-[-10%] left-[-15%] w-[75vw] h-[55vh] rounded-full bg-pink-500/35 blur-[120px] mix-blend-screen animate-blob-3"></div>
-    <div class="absolute bottom-[-15%] right-[-5%] w-[80vw] h-[60vh] rounded-full bg-rose-500/40 blur-[135px] mix-blend-screen animate-blob-1"></div>
-  </div>
+      <!-- Blue/Indigo Glow Blobs (Middle Layer) -->
+      <div
+        class="absolute top-[20%] left-[-10%] w-[65vw] h-[45vh] rounded-full bg-blue-600/30 blur-[130px] mix-blend-screen animate-blob-1"
+      ></div>
+      <div
+        class="absolute top-[12%] right-[-10%] w-[60vw] h-[50vh] rounded-full bg-indigo-600/25 blur-[140px] mix-blend-screen animate-blob-2"
+      ></div>
 
-  <!-- CONTAINER WRAPPER -->
-  <div class="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-16 w-full max-w-7xl mx-auto">
-    
-    <!-- ANNOUNCEMENT PILL -->
-    <div class="mb-9 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md cursor-pointer group scale-95 hover:scale-100">
-      <span class="bg-[#2463EB] text-[10px] font-bold text-white px-2.5 py-0.5 rounded-full uppercase tracking-wider">New</span>
-      <span class="text-xs md:text-sm font-medium text-zinc-300 group-hover:text-white transition-colors">Introducing a Smarter Way to Detect Phishing Emails</span>
-      <svg class="w-3 h-3 text-zinc-400 group-hover:text-white group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
-      </svg>
+      <!-- Vibrant Pink/Magenta/Rose Glow Blobs (Lower Layer) -->
+      <div
+        class="absolute bottom-[-10%] left-[-15%] w-[75vw] h-[55vh] rounded-full bg-pink-500/35 blur-[120px] mix-blend-screen animate-blob-3"
+      ></div>
+      <div
+        class="absolute bottom-[-15%] right-[-5%] w-[80vw] h-[60vh] rounded-full bg-rose-500/40 blur-[135px] mix-blend-screen animate-blob-1"
+      ></div>
     </div>
 
-    <!-- MAIN TITLE -->
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-center text-white mb-10 select-text max-w-3xl leading-tight">
-      What email would you like to analyze?
-    </h1>
-
-    <!-- FOLDER UPLOAD CARD -->
-    <div 
-      id="folder-card"
-      class="relative w-full max-w-[420px] aspect-square bg-gradient-to-br from-[#e64a19] to-[#d84315] rounded-[36px] shadow-[0_25px_60px_rgba(216,58,14,0.35),0_0_50px_rgba(216,58,14,0.1)] overflow-hidden cursor-pointer group hover:scale-[1.02] hover:shadow-[0_30px_70px_rgba(216,58,14,0.5)] active:scale-[0.99] transition-all duration-300 select-none flex flex-col justify-end border border-white/10"
+    <!-- CONTAINER WRAPPER -->
+    <div
+      class="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 py-16 w-full max-w-7xl mx-auto"
     >
-      <!-- Hidden File Input -->
-      <input type="file" id="image-upload-input" accept="image/*" multiple class="hidden">
+      <!-- ANNOUNCEMENT PILL -->
+      <div
+        class="mb-9 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md cursor-pointer group scale-95 hover:scale-100"
+      >
+        <span
+          class="bg-[#2463EB] text-[10px] font-bold text-white px-2.5 py-0.5 rounded-full uppercase tracking-wider"
+          >New</span
+        >
+        <span
+          class="text-xs md:text-sm font-medium text-zinc-300 group-hover:text-white transition-colors"
+          >Introducing a Smarter Way to Detect Phishing Emails</span
+        >
+        <svg
+          class="w-3 h-3 text-zinc-400 group-hover:text-white group-hover:translate-x-0.5 transition-all"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </div>
 
-      <!-- Folder Sheets (Inside/Sticking out of the pocket) -->
-      <div class="absolute inset-0 pointer-events-none z-0">
-        <!-- Sheet 1 (Left) -->
-        <div id="sheet-1" class="absolute top-[18%] left-[12%] w-[130px] h-[170px] bg-white rounded-2xl -rotate-[14deg] shadow-[0_6px_16px_rgba(0,0,0,0.12)] transition-all duration-300 origin-bottom flex flex-col p-4 overflow-hidden border border-zinc-200/50 group-hover:-translate-y-4 group-hover:-rotate-[16deg]">
-          <div class="sheet-default-lines flex flex-col gap-2.5">
-            <div class="h-2 w-14 bg-zinc-200/80 rounded-full"></div>
-            <div class="h-2 w-20 bg-zinc-100 rounded-full"></div>
-            <div class="h-2 w-16 bg-zinc-100 rounded-full"></div>
-            <div class="h-2 w-10 bg-zinc-100 rounded-full"></div>
+      <!-- MAIN TITLE -->
+      <h1
+        class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-center text-white mb-10 select-text max-w-3xl leading-tight"
+      >
+        What email would you like to analyze?
+      </h1>
+
+      <!-- FOLDER UPLOAD CARD -->
+      <div
+        id="folder-card"
+        class="relative w-full max-w-[420px] aspect-square bg-gradient-to-br from-[#e64a19] to-[#d84315] rounded-[36px] shadow-[0_25px_60px_rgba(216,58,14,0.35),0_0_50px_rgba(216,58,14,0.1)] overflow-hidden cursor-pointer group hover:scale-[1.02] hover:shadow-[0_30px_70px_rgba(216,58,14,0.5)] active:scale-[0.99] transition-all duration-300 select-none flex flex-col justify-end border border-white/10"
+      >
+        <!-- Hidden File Input -->
+        <input
+          type="file"
+          id="image-upload-input"
+          accept="image/*"
+          multiple
+          class="hidden"
+        />
+
+        <!-- Folder Sheets (Inside/Sticking out of the pocket) -->
+        <div class="absolute inset-0 pointer-events-none z-0">
+          <!-- Sheet 1 (Left) -->
+          <div
+            id="sheet-1"
+            class="absolute top-[18%] left-[12%] w-[130px] h-[170px] bg-white rounded-2xl -rotate-[14deg] shadow-[0_6px_16px_rgba(0,0,0,0.12)] transition-all duration-300 origin-bottom flex flex-col p-4 overflow-hidden border border-zinc-200/50 group-hover:-translate-y-4 group-hover:-rotate-[16deg]"
+          >
+            <div class="sheet-default-lines flex flex-col gap-2.5">
+              <div class="h-2 w-14 bg-zinc-200/80 rounded-full"></div>
+              <div class="h-2 w-20 bg-zinc-100 rounded-full"></div>
+              <div class="h-2 w-16 bg-zinc-100 rounded-full"></div>
+              <div class="h-2 w-10 bg-zinc-100 rounded-full"></div>
+            </div>
+            <img
+              class="sheet-preview absolute inset-0 w-full h-full object-cover hidden pointer-events-auto"
+            />
+            <button
+              type="button"
+              class="sheet-delete-btn absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center text-[11px] font-bold hidden pointer-events-auto active:scale-95 transition-all z-20"
+            >
+              ×
+            </button>
           </div>
-          <img class="sheet-preview absolute inset-0 w-full h-full object-cover hidden pointer-events-auto" />
-          <button type="button" class="sheet-delete-btn absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center text-[11px] font-bold hidden pointer-events-auto active:scale-95 transition-all z-20">×</button>
+
+          <!-- Sheet 2 (Middle) -->
+          <div
+            id="sheet-2"
+            class="absolute top-[13%] left-[34%] w-[130px] h-[170px] bg-white rounded-2xl -rotate-[2deg] shadow-[0_8px_20px_rgba(0,0,0,0.15)] transition-all duration-300 origin-bottom flex flex-col p-4 overflow-hidden border border-zinc-200/50 group-hover:-translate-y-6 group-hover:scale-105"
+          >
+            <div class="sheet-default-lines flex flex-col gap-2.5">
+              <div class="h-2 w-12 bg-zinc-200/80 rounded-full"></div>
+              <div class="h-2 w-16 bg-zinc-100 rounded-full"></div>
+              <div class="h-2 w-20 bg-zinc-100 rounded-full"></div>
+              <div class="h-2 w-14 bg-zinc-100 rounded-full"></div>
+            </div>
+            <img
+              class="sheet-preview absolute inset-0 w-full h-full object-cover hidden pointer-events-auto"
+            />
+            <button
+              type="button"
+              class="sheet-delete-btn absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center text-[11px] font-bold hidden pointer-events-auto active:scale-95 transition-all z-20"
+            >
+              ×
+            </button>
+          </div>
+
+          <!-- Sheet 3 (Right) -->
+          <div
+            id="sheet-3"
+            class="absolute top-[19%] left-[56%] w-[130px] h-[170px] bg-white rounded-2xl rotate-[10deg] shadow-[0_6px_16px_rgba(0,0,0,0.12)] transition-all duration-300 origin-bottom flex flex-col p-4 overflow-hidden border border-zinc-200/50 group-hover:-translate-y-4 group-hover:rotate-[12deg]"
+          >
+            <div class="sheet-default-lines flex flex-col gap-2.5">
+              <div class="h-2 w-16 bg-zinc-200/80 rounded-full"></div>
+              <div class="h-2 w-12 bg-zinc-100 rounded-full"></div>
+              <div class="h-2 w-18 bg-zinc-100 rounded-full"></div>
+              <div class="h-2 w-10 bg-zinc-100 rounded-full"></div>
+            </div>
+            <img
+              class="sheet-preview absolute inset-0 w-full h-full object-cover hidden pointer-events-auto"
+            />
+            <button
+              type="button"
+              class="sheet-delete-btn absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center text-[11px] font-bold hidden pointer-events-auto active:scale-95 transition-all z-20"
+            >
+              ×
+            </button>
+
+            <!-- More Overlap Badge -->
+            <div
+              id="sheet-more-badge"
+              class="absolute inset-0 bg-black/60 text-white flex items-center justify-center font-bold text-lg hidden z-10"
+            ></div>
+          </div>
         </div>
 
-        <!-- Sheet 2 (Middle) -->
-        <div id="sheet-2" class="absolute top-[13%] left-[34%] w-[130px] h-[170px] bg-white rounded-2xl -rotate-[2deg] shadow-[0_8px_20px_rgba(0,0,0,0.15)] transition-all duration-300 origin-bottom flex flex-col p-4 overflow-hidden border border-zinc-200/50 group-hover:-translate-y-6 group-hover:scale-105">
-          <div class="sheet-default-lines flex flex-col gap-2.5">
-            <div class="h-2 w-12 bg-zinc-200/80 rounded-full"></div>
-            <div class="h-2 w-16 bg-zinc-100 rounded-full"></div>
-            <div class="h-2 w-20 bg-zinc-100 rounded-full"></div>
-            <div class="h-2 w-14 bg-zinc-100 rounded-full"></div>
-          </div>
-          <img class="sheet-preview absolute inset-0 w-full h-full object-cover hidden pointer-events-auto" />
-          <button type="button" class="sheet-delete-btn absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center text-[11px] font-bold hidden pointer-events-auto active:scale-95 transition-all z-20">×</button>
-        </div>
+        <!-- Pocket Clip-path SVG Definition -->
+        <svg class="absolute w-0 h-0 pointer-events-none">
+          <defs>
+            <clipPath id="folder-pocket-clip" clipPathUnits="objectBoundingBox">
+              <path
+                d="M 0,0.38 L 0.15,0.38 C 0.22,0.38 0.26,0.48 0.32,0.48 L 1,0.48 L 1,1 L 0,1 Z"
+              />
+            </clipPath>
+          </defs>
+        </svg>
 
-        <!-- Sheet 3 (Right) -->
-        <div id="sheet-3" class="absolute top-[19%] left-[56%] w-[130px] h-[170px] bg-white rounded-2xl rotate-[10deg] shadow-[0_6px_16px_rgba(0,0,0,0.12)] transition-all duration-300 origin-bottom flex flex-col p-4 overflow-hidden border border-zinc-200/50 group-hover:-translate-y-4 group-hover:rotate-[12deg]">
-          <div class="sheet-default-lines flex flex-col gap-2.5">
-            <div class="h-2 w-16 bg-zinc-200/80 rounded-full"></div>
-            <div class="h-2 w-12 bg-zinc-100 rounded-full"></div>
-            <div class="h-2 w-18 bg-zinc-100 rounded-full"></div>
-            <div class="h-2 w-10 bg-zinc-100 rounded-full"></div>
+        <!-- Pocket Overlay with Glassmorphism -->
+        <div
+          style="clip-path: url(#folder-pocket-clip)"
+          class="absolute inset-0 bg-gradient-to-b from-[#fca077]/40 via-[#e76035]/60 to-[#bc3a18]/90 backdrop-blur-xl pointer-events-none z-10 border-t border-white/20"
+        ></div>
+
+        <!-- Pocket Highlight Border -->
+        <svg
+          class="absolute inset-0 w-full h-full pointer-events-none z-20"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M 0,38 L 15,38 C 22,38 26,48 32,48 L 100,48"
+            fill="none"
+            stroke="rgba(255,255,255,0.4)"
+            stroke-width="1.2"
+            vector-effect="non-scaling-stroke"
+          />
+        </svg>
+
+        <!-- Pocket Content (Text and Gear Icon) -->
+        <div
+          class="absolute inset-x-0 bottom-0 p-8 flex items-end justify-between pointer-events-none z-30"
+        >
+          <div class="flex flex-col select-text">
+            <span
+              class="text-white text-3xl font-bold tracking-tight leading-none mb-1.5 font-sans"
+              >Upload</span
+            >
+            <span class="text-white/70 text-sm font-medium tracking-wide"
+              >Screeshot of email</span
+            >
           </div>
-          <img class="sheet-preview absolute inset-0 w-full h-full object-cover hidden pointer-events-auto" />
-          <button type="button" class="sheet-delete-btn absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center text-[11px] font-bold hidden pointer-events-auto active:scale-95 transition-all z-20">×</button>
-          
-          <!-- More Overlap Badge -->
-          <div id="sheet-more-badge" class="absolute inset-0 bg-black/60 text-white flex items-center justify-center font-bold text-lg hidden z-10"></div>
         </div>
       </div>
 
-      <!-- Pocket Clip-path SVG Definition -->
-      <svg class="absolute w-0 h-0 pointer-events-none">
-        <defs>
-          <clipPath id="folder-pocket-clip" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0.38 L 0.15,0.38 C 0.22,0.38 0.26,0.48 0.32,0.48 L 1,0.48 L 1,1 L 0,1 Z" />
-          </clipPath>
-        </defs>
-      </svg>
+      <!-- Analyze Button -->
+      <button
+        id="folder-analyze-btn"
+        class="mt-8 px-8 py-3 rounded-full bg-white text-black font-semibold shadow-lg hover:bg-zinc-200 active:scale-95 opacity-0 pointer-events-none scale-95 transition-all duration-300 flex items-center gap-2 z-10"
+      >
+        <span>Analyze Images</span>
+        <svg
+          class="w-4 h-4 stroke-black fill-none stroke-[2.5]"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+          />
+        </svg>
+      </button>
+    </div>
 
-      <!-- Pocket Overlay with Glassmorphism -->
-      <div style="clip-path: url(#folder-pocket-clip);" class="absolute inset-0 bg-gradient-to-b from-[#fca077]/40 via-[#e76035]/60 to-[#bc3a18]/90 backdrop-blur-xl pointer-events-none z-10 border-t border-white/20"></div>
+    <div
+      class="text-white font-sans min-h-screen flex flex-col justify-center items-center overflow-x-hidden relative px-4 py-8"
+    >
+      <!-- BACK TO HOME LINK -->
 
-      <!-- Pocket Highlight Border -->
-      <svg class="absolute inset-0 w-full h-full pointer-events-none z-20" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M 0,38 L 15,38 C 22,38 26,48 32,48 L 100,48" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" vector-effect="non-scaling-stroke" />
-      </svg>
+      <!-- AMBIENT BACKDROP LIGHTS -->
+      <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-yellow-600/10 blur-[120px] mix-blend-screen animate-ambient-glow"
+        ></div>
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-blue-900/15 blur-[160px] mix-blend-screen animate-ambient-glow"
+          style="animation-delay: -3s"
+        ></div>
+      </div>
 
-      <!-- Pocket Content (Text and Gear Icon) -->
-      <div class="absolute inset-x-0 bottom-0 p-8 flex items-end justify-between pointer-events-none z-30">
-        <div class="flex flex-col select-text">
-          <span class="text-white text-3xl font-bold tracking-tight leading-none mb-1.5 font-sans">Upload</span>
-          <span class="text-white/70 text-sm font-medium tracking-wide">Screeshot of email</span>
+      <!-- PERSPECTIVE CARD WRAPPER -->
+      <div
+        class="relative z-10 w-full max-w-[390px] aspect-[3/4.2] flex justify-center items-center"
+      >
+        <!-- THE BLISTER COLLECTIBLE CARD -->
+        <div
+          id="collectible-card"
+          class="blister-card relative w-full h-full rounded-[28px] bg-[#0c0d10] border border-white/[0.08] flex flex-col overflow-hidden select-none cursor-pointer"
+        >
+          <!-- Dynamic Glare Layer -->
+          <div id="card-glare" class="card-glare"></div>
+
+          <!-- Edge highlight for the card plastic layer -->
+          <div
+            class="absolute inset-px rounded-[27px] border border-white/[0.03] pointer-events-none z-10"
+          ></div>
+
+          <!-- CARD HEADER SECTION (Above Crease) -->
+          <div class="p-8 pb-4 flex flex-col flex-none">
+            <!-- Title and Badge row -->
+            <div class="flex justify-between items-start">
+              <!-- Logo Title -->
+              <h1
+                class="text-white text-[28px] font-bold tracking-tight leading-none select-text"
+              >
+                Buy me a coffee
+              </h1>
+
+              <!-- Price Badge -->
+              <div
+                class="bg-white text-black text-[11px] font-extrabold px-3 py-1.5 rounded-[9px] shadow-[0_4px_12px_rgba(255,255,255,0.12)] tracking-wide"
+              >
+                RAW57
+              </div>
+            </div>
+
+            <!-- Tagline/Description -->
+            <p
+              class="text-zinc-400 text-sm leading-snug font-medium max-w-[170px] mt-6 select-text"
+            >
+              Be the part<br />of history
+            </p>
+          </div>
+
+          <!-- PHYSICAL SEAM / PLASTIC CREASE -->
+          <div class="card-crease w-full flex-none"></div>
+
+          <!-- CARD COMPARTMENT SECTION (Below Crease) -->
+          <div
+            class="p-6 pt-3 flex-1 flex flex-col justify-center items-center relative"
+          >
+            <!-- The Blister Bubble Dome -->
+            <div
+              class="blister-bubble w-full h-full flex justify-center items-center relative"
+            >
+              <!-- Plastic Shine highlight overlay -->
+              <div class="blister-bubble-shine"></div>
+
+              <!-- Ambient light reflection inside blister dome (Cyan-Purple tint) -->
+              <div
+                class="absolute bottom-2 right-2 w-24 h-24 rounded-full bg-blue-500/10 blur-xl pointer-events-none"
+              ></div>
+
+              <!-- Gold glow backdrop directly behind the coin -->
+              <div
+                class="absolute w-44 h-44 rounded-full bg-yellow-500/10 blur-[40px] pointer-events-none z-0"
+              ></div>
+
+              <!-- THE COIN INNER CONTAINER (with parallax layer & animation) -->
+              <div
+                id="gold-coin-wrapper"
+                class="relative w-52 h-52 flex justify-center items-center z-10 transition-transform duration-300 ease-out"
+              >
+                <!-- Gold Coin Image Asset -->
+                <img
+                  id="gold-coin"
+                  src="/images/embacy_coin_gold-removebg-preview.png"
+                  alt="Embacy Gold Coin"
+                  class="w-48 h-48 object-contain select-none pointer-events-none drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] mix-blend-screen"
+                  onerror="
+                    this.src =
+                      'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23EAB308%22 opacity=%220.8%22/><path d=%22M 30,50 Q 50,20 70,50 T 30,50%22 fill=%22none%22 stroke=%22%23CA8A04%22 stroke-width=%224%22/></svg>'
+                  "
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Analyze Button -->
-    <button 
-      id="folder-analyze-btn" 
-      class="mt-8 px-8 py-3 rounded-full bg-white text-black font-semibold shadow-lg hover:bg-zinc-200 active:scale-95 opacity-0 pointer-events-none scale-95 transition-all duration-300 flex items-center gap-2 z-10"
-    >
-      <span>Analyze Images</span>
-      <svg class="w-4 h-4 stroke-black fill-none stroke-[2.5]" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-      </svg>
-    </button>
-
-  </div>
-
-  <!-- INTERACTIVE LOGIC SCRIPT -->
-  <script>
-    const folderCard = document.getElementById('folder-card');
-    const fileInput = document.getElementById('image-upload-input');
-    const analyzeBtn = document.getElementById('folder-analyze-btn');
-
-    let selectedFiles = [];
-
-    const sheets = [
-      {
-        el: document.getElementById('sheet-1'),
-        preview: document.getElementById('sheet-1').querySelector('.sheet-preview'),
-        lines: document.getElementById('sheet-1').querySelector('.sheet-default-lines'),
-        deleteBtn: document.getElementById('sheet-1').querySelector('.sheet-delete-btn')
-      },
-      {
-        el: document.getElementById('sheet-2'),
-        preview: document.getElementById('sheet-2').querySelector('.sheet-preview'),
-        lines: document.getElementById('sheet-2').querySelector('.sheet-default-lines'),
-        deleteBtn: document.getElementById('sheet-2').querySelector('.sheet-delete-btn')
-      },
-      {
-        el: document.getElementById('sheet-3'),
-        preview: document.getElementById('sheet-3').querySelector('.sheet-preview'),
-        lines: document.getElementById('sheet-3').querySelector('.sheet-default-lines'),
-        deleteBtn: document.getElementById('sheet-3').querySelector('.sheet-delete-btn')
-      }
-    ];
-    const moreBadge = document.getElementById('sheet-more-badge');
-
-    // Handle Folder Card Click to trigger upload
-    folderCard.addEventListener('click', (e) => {
-      // Trigger only if we didn't click delete or settings buttons
-      if (e.target.closest('.sheet-delete-btn') || e.target.closest('#folder-settings-btn')) {
-        return;
-      }
-      fileInput.click();
-    });
-
-    // Handle File Input Change
-    fileInput.addEventListener('change', async (e) => {
-      try{
-        const formData = new FormData()
-        formData.append("image",fileInput.files[0])
-
-        const request = await fetch('/auth/analyze',{
-          method:"POST",
-          body:formData
-        })
-
-        const result = await request.json()
-        if(!result.succcess){
-          showError("Error while uploading..")
-          return;
-        }
-        showSuccess("Analysing wait....")
-      }catch(e){
-        console.log(e)
-      }
-    });
-
-    
-
-    // Handle Drag & Drop Events
-    ['dragenter', 'dragover'].forEach(eventName => {
-      folderCard.addEventListener(eventName, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        folderCard.classList.add('scale-[1.03]', 'shadow-[0_35px_80px_rgba(216,58,14,0.6)]');
-      }, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-      folderCard.addEventListener(eventName, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        folderCard.classList.remove('scale-[1.03]', 'shadow-[0_35px_80px_rgba(216,58,14,0.6)]');
-      }, false);
-    });
-
-    folderCard.addEventListener('drop', (e) => {
-      const dt = e.dataTransfer;
-      const files = dt.files;
-      handleFiles(files);
-    }, false);
-
-    // Process selected files
-    function handleFiles(files) {
-      const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
-      if (imageFiles.length === 0 && files.length > 0) {
-        alert('Please upload image files only.');
-        return;
-      }
-      
-      // Append to selectedFiles
-      selectedFiles = [...selectedFiles, ...imageFiles];
-      updateSheets();
-      
-      // Reset input value so same file can be selected again if needed
-      fileInput.value = '';
-    }
-
-    // Delete button click handlers
-    sheets.forEach((sheet, idx) => {
-      sheet.deleteBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        selectedFiles.splice(idx, 1);
-        updateSheets();
-      });
-    });
-
-    // Update Folder Sheets and Previews
-    function updateSheets() {
-      // Clear old object URLs to avoid memory leaks
-      sheets.forEach(sheet => {
-        if (sheet.preview.src && sheet.preview.src.startsWith('blob:')) {
-          URL.revokeObjectURL(sheet.preview.src);
-        }
-      });
-
-      if (selectedFiles.length === 0) {
-        // Reset to default blank/lines state
-        sheets.forEach(sheet => {
-          sheet.preview.classList.add('hidden');
-          sheet.preview.src = '';
-          sheet.lines.classList.remove('hidden');
-          sheet.deleteBtn.classList.add('hidden');
-        });
-        moreBadge.classList.add('hidden');
-        
-        // Hide Analyze Button
-        analyzeBtn.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-        analyzeBtn.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-      } else {
-        // Render images inside sheets
-        for (let i = 0; i < 3; i++) {
-          const sheet = sheets[i];
-          if (i < selectedFiles.length) {
-            const file = selectedFiles[i];
-            const url = URL.createObjectURL(file);
-            sheet.preview.src = url;
-            sheet.preview.classList.remove('hidden');
-            sheet.lines.classList.add('hidden');
-            sheet.deleteBtn.classList.remove('hidden');
-          } else {
-            sheet.preview.classList.add('hidden');
-            sheet.preview.src = '';
-            sheet.lines.classList.remove('hidden');
-            sheet.deleteBtn.classList.add('hidden');
-          }
-        }
-
-        // Handle sheet more badge (+N more) on the 3rd sheet
-        if (selectedFiles.length > 3) {
-          moreBadge.textContent = `+${selectedFiles.length - 2}`;
-          moreBadge.classList.remove('hidden');
-        } else {
-          moreBadge.classList.add('hidden');
-        }
-
-        // Show Analyze Button
-        analyzeBtn.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
-        analyzeBtn.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
-      }
-    }
-
-    // Handle Analyze button click
-    analyzeBtn.addEventListener('click', () => {
-      alert(`Submit action triggered: Simulating analysis of ${selectedFiles.length} image(s).`);
-    });
-  </script>
-</body>
+    <script src="/js/home.js"></script>
+  </body>
 </html>

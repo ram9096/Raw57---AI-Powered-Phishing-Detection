@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embacy Coin - Premium Collectible</title>
+  <!-- Google Fonts: Plus Jakarta Sans for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS Custom Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          animation: {
+            'ambient-glow': 'ambient 8s infinite alternate ease-in-out',
+            'coin-float': 'float-coin 4s infinite ease-in-out',
+          },
+          keyframes: {
+            ambient: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)', opacity: 0.3 },
+              '50%': { transform: 'translate(20px, -30px) scale(1.1)', opacity: 0.45 },
+              '100%': { transform: 'translate(-20px, 15px) scale(0.9)', opacity: 0.3 }
+            },
+            'float-coin': {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-6px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Selection styling */
+    ::selection {
+      background: rgba(255, 215, 0, 0.25);
+      color: #fff;
+    }
+
+    /* Premium Blister Card Styles */
+    .blister-card {
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out;
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    /* The physical plastic crease/groove separating sections */
+    .card-crease {
+      position: relative;
+      height: 6px;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0.05) 100%);
+      border-top: 1px solid rgba(0, 0, 0, 0.7);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    /* 3D Blister Bubble with highlights and reflections */
+    .blister-bubble {
+      position: relative;
+      background: rgba(255, 255, 255, 0.015);
+      border-radius: 24px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      box-shadow: 
+        /* Outer soft shadow */
+        0 25px 50px -12px rgba(0, 0, 0, 0.7),
+        /* Warm inner glow from gold coin */
+        0 0 40px rgba(234, 179, 8, 0.08),
+        /* Inner specular plastic reflections */
+        inset 0 12px 24px rgba(255, 255, 255, 0.08),
+        inset 0 -12px 24px rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Side chromatic refraction highlights on plastic bubble */
+    .blister-bubble::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      padding: 1px;
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.02) 40%, 
+        rgba(255, 255, 255, 0.02) 65%, 
+        rgba(59, 130, 246, 0.55) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Ambient reflection overlay inside the plastic */
+    .blister-bubble-shine {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 45%;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+      pointer-events: none;
+      border-radius: 24px 24px 0 0;
+    }
+
+    /* Glare effect moving with cursor */
+    .card-glare {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      mix-blend-mode: overlay;
+      border-radius: 28px;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 100%);
+      transition: background 0.15s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-[#050608] text-white font-sans min-h-screen flex flex-col justify-center items-center overflow-x-hidden relative px-4 py-8">
+
+  <!-- BACK TO HOME LINK -->
+  <a href="/auth/home" class="absolute top-6 left-6 inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors text-sm font-medium z-30 group">
+    <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    <span>Back to Dashboard</span>
+  </a>
+
+  <!-- AMBIENT BACKDROP LIGHTS -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-yellow-600/10 blur-[120px] mix-blend-screen animate-ambient-glow"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-blue-900/15 blur-[160px] mix-blend-screen animate-ambient-glow" style="animation-delay: -3s;"></div>
+  </div>
+
+  <!-- PERSPECTIVE CARD WRAPPER -->
+  <div class="relative z-10 w-full max-w-[390px] aspect-[3/4.2] flex justify-center items-center">
+    
+    <!-- THE BLISTER COLLECTIBLE CARD -->
+    <div 
+      id="collectible-card"
+      class="blister-card relative w-full h-full rounded-[28px] bg-[#0c0d10] border border-white/[0.08] flex flex-col overflow-hidden select-none cursor-pointer"
+    >
+      <!-- Dynamic Glare Layer -->
+      <div id="card-glare" class="card-glare"></div>
+
+      <!-- Edge highlight for the card plastic layer -->
+      <div class="absolute inset-px rounded-[27px] border border-white/[0.03] pointer-events-none z-10"></div>
+
+      <!-- CARD HEADER SECTION (Above Crease) -->
+      <div class="p-8 pb-4 flex flex-col flex-none">
+        
+        <!-- Title and Badge row -->
+        <div class="flex justify-between items-start">
+          <!-- Logo Title -->
+          <h1 class="text-white text-[28px] font-bold tracking-tight leading-none select-text">
+            embacy coin
+          </h1>
+          
+          <!-- Price Badge -->
+          <div class="bg-white text-black text-[11px] font-extrabold px-3 py-1.5 rounded-[9px] shadow-[0_4px_12px_rgba(255,255,255,0.12)] tracking-wide">
+            E1.20
+          </div>
+        </div>
+
+        <!-- Tagline/Description -->
+        <p class="text-zinc-400 text-sm leading-snug font-medium max-w-[170px] mt-6 select-text">
+          Small part<br>of a magical story
+        </p>
+      </div>
+
+      <!-- PHYSICAL SEAM / PLASTIC CREASE -->
+      <div class="card-crease w-full flex-none"></div>
+
+      <!-- CARD COMPARTMENT SECTION (Below Crease) -->
+      <div class="p-6 pt-3 flex-1 flex flex-col justify-center items-center relative">
+        
+        <!-- The Blister Bubble Dome -->
+        <div class="blister-bubble w-full h-full flex justify-center items-center relative">
+          
+          <!-- Plastic Shine highlight overlay -->
+          <div class="blister-bubble-shine"></div>
+
+          <!-- Ambient light reflection inside blister dome (Cyan-Purple tint) -->
+          <div class="absolute bottom-2 right-2 w-24 h-24 rounded-full bg-blue-500/10 blur-xl pointer-events-none"></div>
+          
+          <!-- Gold glow backdrop directly behind the coin -->
+          <div class="absolute w-44 h-44 rounded-full bg-yellow-500/10 blur-[40px] pointer-events-none z-0"></div>
+
+          <!-- THE COIN INNER CONTAINER (with parallax layer & animation) -->
+          <div 
+            id="gold-coin-wrapper" 
+            class="relative w-52 h-52 flex justify-center items-center z-10 transition-transform duration-300 ease-out"
+          >
+            <!-- Gold Coin Image Asset -->
+            <img 
+              id="gold-coin"
+              src="../../../public/images/embacy_coin_gold-removebg-preview.png" 
+              alt="Embacy Gold Coin" 
+              class="w-48 h-48 object-contain select-none pointer-events-none drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] mix-blend-screen"
+              onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23EAB308%22 opacity=%220.8%22/><path d=%22M 30,50 Q 50,20 70,50 T 30,50%22 fill=%22none%22 stroke=%22%23CA8A04%22 stroke-width=%224%22/></svg>'"
+            />
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- INTERACTIVE JS FOR PARALLAX TILT & REFLECTION -->
+  <script>
+    const card = document.getElementById('collectible-card');
+    const glare = document.getElementById('card-glare');
+    const coinWrapper = document.getElementById('gold-coin-wrapper');
+    const coin = document.getElementById('gold-coin');
+
+    // Add gentle rotation behavior based on mouse move
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Map to values between -1 and 1
+      const xc = (x - rect.width / 2) / (rect.width / 2);
+      const yc = (rect.height / 2 - y) / (rect.height / 2);
+      
+      // Calculate angles (max 12 degrees tilt)
+      const rotateX = yc * 12;
+      const rotateY = xc * 12;
+      
+      // Apply tilt transform on the blister card itself
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      // Dynamic Glare Gradient following cursor
+      const glareX = (x / rect.width) * 100;
+      const glareY = (y / rect.height) * 100;
+      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 55%)`;
+
+      // 3D Parallax: Shift the coin in the opposite direction slightly for visual depth
+      const coinParallaxX = xc * -12;
+      const coinParallaxY = yc * 12; // inverse Y to create depth
+      
+      // Slightly rotate coin to simulate visual tilt
+      const coinRotate = xc * 6;
+      
+      coinWrapper.style.transform = `translate3d(${coinParallaxX}px, ${coinParallaxY}px, 25px) rotate(${coinRotate}deg)`;
+    });
+
+    // Reset card and coin to default orientation on mouse leave
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      glare.style.background = 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 100%)';
+      coinWrapper.style.transform = 'translate3d(0, 0, 0) rotate(0deg)';
+    });
+  </script>
+</body>
+</html>
